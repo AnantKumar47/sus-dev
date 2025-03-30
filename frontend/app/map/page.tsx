@@ -24,7 +24,9 @@ export default function MapPage() {
             <Link href="/map" className="text-emerald-600 border-b-2 border-emerald-600 dark:text-emerald-400 dark:border-emerald-400">
               Urban Planning
             </Link>
-            <a href="#" className="text-gray-600 hover:text-emerald-600 dark:text-gray-300 dark:hover:text-emerald-400">Analytics</a>
+            <Link href="/solar" className="text-gray-600 hover:text-emerald-600 dark:text-gray-300 dark:hover:text-emerald-400">
+              Solar Calculator
+            </Link>
             <a href="#" className="text-gray-600 hover:text-emerald-600 dark:text-gray-300 dark:hover:text-emerald-400">About</a>
           </nav>
         </div>

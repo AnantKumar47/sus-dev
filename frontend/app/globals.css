@@ -3,6 +3,10 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --primary: #10b981;
+  --secondary: #8b5cf6;
+  --accent: #047857;
+  scroll-behavior: smooth;
 }
 
 @theme inline {
@@ -14,13 +18,185 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #09090b;
+    --foreground: #e2e2e2;
+    --primary: #059669;
+    --secondary: #7c3aed;
+    --accent: #10b981;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  overflow-y: auto;
+  overscroll-behavior-y: none;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 15, 15, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(107, 114, 128, 0.5);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(124, 58, 237, 0.5);
+}
+
+/* Neon glow effects */
+.glow-sm {
+  text-shadow: 0 0 7px rgba(52, 211, 153, 0.5),
+               0 0 10px rgba(52, 211, 153, 0.3);
+}
+
+/* Scroll down animation */
+@keyframes scroll-down {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(5px);
+    opacity: 0;
+  }
+}
+
+.animate-scroll-down {
+  animation: scroll-down 1.5s infinite;
+}
+
+/* Custom animations for loading */
+.animate-spin-slow {
+  animation: spin 3s linear infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.05);
+  }
+}
+
+/* Fade in animation for loading screen */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Style for map drawing */
+.leaflet-interactive {
+  stroke-width: 3 !important;
+  fill-opacity: 0.3 !important;
+  stroke-opacity: 0.8 !important;
+  pointer-events: auto !important;
+}
+
+/* Make sure the feature group persists */
+.leaflet-overlay-pane {
+  z-index: 401 !important; /* Ensure it stays above other map elements */
+}
+
+/* Ensure editing handles are visible */
+.leaflet-editing-icon {
+  border: 2px solid rgba(0, 0, 0, 0.5) !important;
+  background-color: white !important;
+}
+
+/* Snap scrolling and section handling */
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+
+main > section {
+  scroll-snap-align: start;
+}
+
+/* Special handling for the middle section to create a gap at the top */
+main > section:nth-child(2) {
+  scroll-margin-top: 8px;
+}
+
+/* Special handling for the last section to allow content overflow */
+main > section:last-child {
+  scroll-snap-align: start;
+  overflow-y: visible;
+  height: auto;
+  min-height: 100vh;
+  padding-bottom: 60px; /* Extra space at the bottom */
+}
+
+/* Add scrolling capability to the sustainability results */
+#analysis-results {
+  scroll-margin-top: 1rem;
+  overflow-y: visible;
+  height: auto;
+}
+
+/* Make the snap container handle long content better */
+.snap-container {
+  height: 100vh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+}
+
+/* Override the snap-stop for last section */
+.snap-section:last-child {
+  scroll-snap-stop: normal;
+}
+
+/* Make sections take exactly one viewport height */
+.h-screen {
+  height: 100vh; 
+  min-height: 100vh;
+}
+
+/* Ensure the map doesn't overflow */
+.leaflet-container {
+  z-index: 0;
+}
+
+/* Enable main content scrolling */
+.flex-col.space-y-6 {
+  padding-bottom: 3rem;
+}
+
+/* Fix for mobile scrolling */
+@media (max-width: 768px) {
+  html, body {
+    overscroll-behavior-y: contain;
+  }
 }
