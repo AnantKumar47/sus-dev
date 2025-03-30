@@ -145,24 +145,28 @@ const MapSelectionComponent = () => {
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
       // For development, if the API is not working, use mock data
+      console.log("api = ", apiUrl)
       let data;
       try {
-        const response = await fetch(`${apiUrl}/analyze`, {
+        const response = await fetch(`${apiUrl}/getall`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            type: selection.type,
-            coordinates: selection.coordinates,
+            latitude: selection.coordinates.bounds[0][0],
+            longitude: selection.coordinates.bounds[0][1]
+
           }),
         });
-        
+        console.log("coor",  selection)
+        console.log("response =",response)
         if (!response.ok) {
           throw new Error(`API request failed with status ${response.status}`);
         }
         
         data = await response.json();
+        console.log("data =",data)
       } catch (fetchError) {
         console.warn('API fetch failed, using mock data instead:', fetchError);
         // Use mock data as fallback for development
